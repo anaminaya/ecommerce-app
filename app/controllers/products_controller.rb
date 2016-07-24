@@ -23,7 +23,8 @@ class ProductsController < ApplicationController
     description:params[:description]
     )
     @products.save
-    render "create.html.erb"
+    flash[:success]= "#{@products.description} was successfully created"
+    redirect_to "/products/#{@products.id}"
   end
 
   def edit
@@ -40,9 +41,18 @@ class ProductsController < ApplicationController
     description:params[:description]
     )
 
-    render "update.html.erb"
+    flash[:success]= "#{@products.description} was successfully updated"
+    redirect_to "/products/#{@products.id}"
   end
 
+  def destroy
+    @products = Product.find_by(id: params[:id])
+    @products.destroy
+    flash[:danger]= "#{@products.description} was successfully destroyed"
+    redirect_to "/products"
+  end
+
+=begin
   def new_form
     render "new_form.html.erb"
   end
@@ -56,5 +66,6 @@ class ProductsController < ApplicationController
     )
      render "new_form.html.erb"
   end
+=end
 
 end

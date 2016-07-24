@@ -5,4 +5,6 @@
  <p> <img src = "<%= @products.image %>" alt =""></p>
  <p><%=@products.description%></p>
 
-<%= link_to "Back to all products","/products"%>
+<p><%= link_to "Edit your product", "/products/#{@products.id}/edit" %>
+<p><%= link_to "Back to all products","/products"%></p>
+<p> <%= link_to "Delete",  %>
