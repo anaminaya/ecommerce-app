@@ -1,0 +1,26 @@
+<h1> Edit Form:</h1>
+
+
+<div>
+
+<%= form_tag("/products/", method: 'patch') do %>
+
+ <%= label_tag(:name) %>
+ <%= text_field_tag(:name, @products.name) %>
+
+
+<%= label_tag(:price) %>
+ <%= text_field_tag(:price, @products.price) %>
+
+<%= label_tag(:image) %>
+ <%= text_field_tag(:image, @products.image) %>
+
+ <%= label_tag(:description) %>
+  <%= text_field_tag(:description, @products.description) %>
+</div>
+
+
+ <div>
+   <%= submit_tag("Edit Product") %>
+ </div>
+<% end %>
