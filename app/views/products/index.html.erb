@@ -1,9 +1,13 @@
 <h1> Check out my products!</h1>
 
-
+<div class="row products-image">
 <%@products.each do |product|%>
-   <p><%= product.name %></p>
-   <p>$ <%= product.price %></p>
-   <p> <img src = "<%= product.image %>" alt =""></p>
+<div class="col-md-4 thumbnail">
+  <a href= "/products/<%= product.id%>">
+    <img src = "<%= product.image %>" alt ="">
+    <p>Price $ <%= product.price %></p>
    <p><%= link_to product.description,"/products/#{product.id}"%></p>
+ </a>
+</div>
 <%end%>
+</div>

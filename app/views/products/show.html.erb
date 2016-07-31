@@ -1,10 +1,15 @@
 <h1>My product!</h1>
 
- <p>Name:<%= @products.name %></p>
- <p>Price $ <%= @products.price %></p>
- <p> <img src = "<%= @products.image %>" alt =""></p>
- <p><%=@products.description%></p>
+
+   <p> <img src = "<%= @products.image %>" alt =""></p>
+   <p><%=@products.description%></p>
+   <h5><%= @supplier.name %></h5>
+   <p id= "color"> <%= @products.sale_message%></p>
+  <p>Price $ <%= @products.price %></p>
+  <p> Tax $ <%= @products.tax%></p>
+  <p> Total $ <%= @products.total %></p>
+
 
 <p><%= link_to "Edit your product", "/products/#{@products.id}/edit" %>
 <p><%= link_to "Back to all products","/products"%></p>
-<p> <%= link_to "Delete",  %>
+<p> <%= link_to "Delete",  "/products/#{@products.id}"%>

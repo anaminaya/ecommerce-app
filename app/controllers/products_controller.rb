@@ -4,10 +4,30 @@ class ProductsController < ApplicationController
     @products =Product.all
     #products is the controller I generated (always plural and lowercase)
     #Product is the model name which holds the attributes (always singular & 1st letter uppercase)
+    if params[:sort]
+      @products = Product.order(params[:sort])
+    end
+      if params[:sort_desc]
+      @products = Product.order(params[sort: :desc])
+    end
+
+    if params[:discount]
+      @products = Product.where("price < ?", 15)
+    end
+
+
   end
 
   def show
-    @products = Product.find_by(id: params[:id])
+
+    if params[:id] = "random"
+    @products = Product.all.sample
+
+    else
+      @products = Product.find_by(id: params[:id])
+    end
+    @supplier = @products.supplier
+
     render "show.html.erb"
   end
 
@@ -52,20 +72,9 @@ class ProductsController < ApplicationController
     redirect_to "/products"
   end
 
-=begin
-  def new_form
-    render "new_form.html.erb"
+  def search
+    @products = Product.where("LOWER(name) LIKE ?", "%#{params[:search].downcase}%")
+    render "index.html.rb"
   end
-
-  def new_product
-  Product.create(
-    name:params[:name],
-    price:params[:price],
-    image:params[:image],
-    description:params[:description]
-    )
-     render "new_form.html.erb"
-  end
-=end
 
 end

@@ -8,5 +8,15 @@ Rails.application.routes.draw do
   delete '/products/:id' => 'products#destroy'
   get '/form' => 'products#new_form'
   post '/form' => 'products#new_product'
+  get '/search' => 'products#search'
+
+
+  get '/signup' => 'users#new'
+  post '/users' => 'users#create'
+
+
+  get'/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  delete'/logout' => 'sessions#destroy'
 
 end
