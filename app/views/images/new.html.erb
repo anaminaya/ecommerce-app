@@ -1,0 +1,8 @@
+<h2>Create an Image</h2>
+
+<%= form_tag("/images", method: 'post') do %>
+  <%= label_tag(:link) %>
+  <%= text_field_tag(:link) %>
+  <%= collection_select :product, :product_id, Product.all, :id, :name %>
+  <%= submit_tag("Create Image") %>
+<% end %>

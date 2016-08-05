@@ -15,20 +15,22 @@ class ProductsController < ApplicationController
       @products = Product.where("price < ?", 15)
     end
 
-
+    if params[:category]
+      category = Category.find_by(name: params[:category])
+      @products = category.products
+    end
   end
 
   def show
-
     if params[:id] = "random"
     @products = Product.all.sample
 
     else
       @products = Product.find_by(id: params[:id])
     end
+
     @supplier = @products.supplier
 
-    render "show.html.erb"
   end
 
   def new
@@ -38,38 +40,35 @@ class ProductsController < ApplicationController
   def create
     @products = Product.new(
     name:params[:name],
+    description:params[:description],
     price:params[:price],
-    image:params[:image],
-    description:params[:description]
     )
-    @products.save
-    flash[:success]= "#{@products.description} was successfully created"
+
+    flash[:success]= "Product successfully created"
     redirect_to "/products/#{@products.id}"
   end
 
   def edit
     @products = Product.find_by(id: params[:id])
-    render "edit.html.erb"
   end
 
   def update
     @products = Product.find_by(id: params[:id])
     @products.update(
     name:params[:name],
+    description:params[:description],
     price:params[:price],
-    image:params[:image],
-    description:params[:description]
     )
 
-    flash[:success]= "#{@products.description} was successfully updated"
+    flash[:success]= "Product successfully updated"
     redirect_to "/products/#{@products.id}"
   end
 
   def destroy
     @products = Product.find_by(id: params[:id])
     @products.destroy
-    flash[:danger]= "#{@products.description} was successfully destroyed"
-    redirect_to "/products"
+    flash[:danger]= " Product was successfully destroyed"
+    redirect_to "/"
   end
 
   def search

@@ -1,25 +1,36 @@
-<h1> Edit Form:</h1>
+<section>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <div class="product_single">
+        <h1>Edit Product</h1>
 
+        <%= form_tag("/products/#{@products.id}", method: 'patch') do %>
+        <div>
+         <%= label_tag(:name) %>
+         <%= text_field_tag(:name, @products.name) %>
+         </div>
 
-<div>
+        <div>
+        <%= label_tag(:price) %>
+         <%= text_field_tag(:price, @products.price) %>
+         </div>
 
-<%= form_tag("/products/#{@products.id}", method: 'patch') do %>
+        <div>
+        <%= label_tag(:image) %>
+         <%= text_field_tag(:image, @products.image) %>
+         </div>
 
- <%= label_tag(:name) %>
- <%= text_field_tag(:name, @products.name) %>
+        <div>
+         <%= label_tag(:description) %>
+          <%= text_field_tag(:description, @products.description) %>
+        </div>
 
+         <div>
+           <%= submit_tag("Edit Product") %>
+         </div>
 
-<%= label_tag(:price) %>
- <%= text_field_tag(:price, @products.price) %>
-
-<%= label_tag(:image) %>
- <%= text_field_tag(:image, @products.image) %>
-
- <%= label_tag(:description) %>
-  <%= text_field_tag(:description, @products.description) %>
-
- <div>
-   <%= submit_tag("Edit Product") %>
- </div>
-<% end %>
-</div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

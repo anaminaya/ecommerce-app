@@ -1,15 +1,39 @@
-<h1>My product!</h1>
+<section>
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <div class="product_single">
+            <h2><%= @products.name %></h2>
+            <h3><%= @products.sale_message %></h3>
+            <h5><%= @supplier.name %></h5>
+            <p>Price: <%= @products.price %></p>
+            <p>Tax: <%= @products.tax %></p>
+            <h4>Categories:</h4>
+            <% @products.categories.each do |category| %>
+              <li><%= category.name %></li>
+              <% end %>
+            <p id="red-price">For a total of: <%= @products.total %></p>
+            <% @products.images.each do |image| %>
+              <img src="<%= image.link %>" width="150" alt="" class="">
+            <% end %>
+            <p>Description: <%= @products.description %></p>
 
+            <%= form_tag '/shoppingcart', method: :post do %>
+            <div>
+              <%= label_tag :Quantity %>
+              <%= text_field_tag :Quantity %>
+            </div>
+            <div>
+              <%= text_field_tag :product_id, @products.id %>
+            </div>
 
-   <p> <img src = "<%= @products.image %>" alt =""></p>
-   <p><%=@products.description%></p>
-   <h5><%= @supplier.name %></h5>
-   <p id= "color"> <%= @products.sale_message%></p>
-  <p>Price $ <%= @products.price %></p>
-  <p> Tax $ <%= @products.tax%></p>
-  <p> Total $ <%= @products.total %></p>
+            <div>
+            <%= submit_tag "Add To Cart" %>
+            </div>
+            <% end %>
 
-
-<p><%= link_to "Edit your product", "/products/#{@products.id}/edit" %>
-<p><%= link_to "Back to all products","/products"%></p>
-<p> <%= link_to "Delete",  "/products/#{@products.id}"%>
+            <%= link_to "Edit", "/products/#{@products.id}/edit", class: "btn btn-success" %>
+            <%= link_to "Delete", "/products/#{@products.id}", {method: :delete, class: "btn btn-danger" }%>
+        </div>
+      </div>
+    </div>
+  </section>
