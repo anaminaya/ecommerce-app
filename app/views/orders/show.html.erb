@@ -1,11 +1,10 @@
-<h1>Order Confirmed!</h1>
+<h2>Order Confirmed!</h2>
 
-<h2>Order Id <%= @order.id %></h2>
-<h3>Order Quantity <%= @order.quantity %></h3>
-
-<h3>Subtotal<%= @order.subtotal %></h3>
-<h3>Tax<%= @order.tax %></h3>
-<h3>Total<%= @order.total %></h3>
-
-<h5><%= @products.name %></h5>
-<img src= "<%=@image.link %>" alt=""
+<% @carts.each do |item|%>
+<h2> <%= item.product.name %>
+<h2>Quantity: <%= item.quantity %></h2>
+<% end %>
+<h2>Order Id:  <%= @order.id %></h2>
+<h2>Subtotal: $<%= @order.subtotal %></h3>
+<h2>Tax: $<%= @order.tax %></h3>
+<h2>Total: $<%= @order.total %></h3>

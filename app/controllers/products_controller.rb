@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    if params[:id] = "random"
+    if params[:id] == "random"
     @products = Product.all.sample
 
     else

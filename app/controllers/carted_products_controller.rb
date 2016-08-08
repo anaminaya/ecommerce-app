@@ -6,14 +6,31 @@ class CartedProductsController < ApplicationController
     user_id: current_user.id,
     status: "carted")
 
+
+
     redirect_to '/shoppingcart'
   end
 
   def index
-    @cart = CartedProduct.where(status: 'carted', user_id: current_user.id)
+    @carts = CartedProduct.where(status: 'carted', user_id: current_user.id)
+
+    if @carts.empty?
+      flash[:info] = "Your cart is empty. Check out some of these products!"
+      redirect_to '/products'
+    end
 
     render "index.html.erb"
 
+  end
+
+  def destroy
+    cart = CartedProduct.find_by(id: params[:id])
+    cart.update(status: 'removed')
+    flash[:success] = "Your#{cart.product.name} was removed from your cart."
+    redirect_to '/products'
+
+
+    redirect_to '/shoppingcart'
   end
 
 

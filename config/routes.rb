@@ -25,9 +25,10 @@ Rails.application.routes.draw do
   get '/shoppingcart' =>'carted_products#index'
 
 
-  post '/orders'=> 'orders#create'
+
+  post '/orders' => 'orders#create'
   get '/orders/:id' => 'orders#show'
 
 
-
+  delete '/shoppingcart/:id' => 'carted_products#destroy'
 end

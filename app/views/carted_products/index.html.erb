@@ -1,16 +1,16 @@
-<h1> Checkout</h1>
+<h2> Checkout</h2>
 
 
-<h3>  Products </h3>
-
-  <% @cart.each do |product| %>
-  <li><%= product.product_id %></li>
-  
+  <% @carts.each do |product| %>
+  <li> Name: <%= product.product.name %></li>
+  <li>Price: <%= product.product.price %></li>
+  <li> Quantity: <%= product.quantity %></li>
+  <%= link_to "Remove from cart", "/shoppingcart/:id", {method: :delete, class: "btn btn-danger" }%>
   <% end %>
 
   <%= form_tag '/orders', method: :post do %>
 
   <div>
-  <%= submit_tag "Buy Now" %>
+  <%= submit_tag "Buy Now", class: 'btn btn-primary' %>
   </div>
   <% end %>

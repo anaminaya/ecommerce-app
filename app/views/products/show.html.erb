@@ -19,8 +19,8 @@
 
             <%= form_tag '/shoppingcart', method: :post do %>
             <div>
-              <%= label_tag :Quantity %>
-              <%= text_field_tag :Quantity %>
+              <%= label_tag :quantity %>
+              <%= text_field_tag :quantity %>
             </div>
             <div>
               <%= text_field_tag :product_id, @products.id %>
