@@ -6,10 +6,14 @@ class Product < ActiveRecord::Base
   has_many :carted_products
   has_many :products, through: :carted_products
 
+  validates :name, presence: true
+  validates :price, numericality: true
+  validates :description, length: {maximum: 500}
+
   def sale_message
-      if price.to_f < 2
+    if price.to_f < 2
       "Discount Item!"
-     else
+    else
       "Not on Sale"
     end
 

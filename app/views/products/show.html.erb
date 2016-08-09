@@ -17,6 +17,7 @@
             <% end %>
             <p>Description: <%= @products.description %></p>
 
+
             <%= form_tag '/shoppingcart', method: :post do %>
             <div>
               <%= label_tag :quantity %>
@@ -30,10 +31,11 @@
             <%= submit_tag "Add To Cart" %>
             </div>
             <% end %>
-
-            <%= link_to "Edit", "/products/#{@products.id}/edit", class: "btn btn-success" %>
-            <%= link_to "Delete", "/products/#{@products.id}", {method: :delete, class: "btn btn-danger" }%>
-        </div>
+            <% if current_user && current_user.admin %>
+              <%= link_to "Edit", "/products/#{@products.id}/edit", class: "btn btn-success" %>
+              <%= link_to "Delete", "/products/#{@products.id}", {method: :delete, class: "btn btn-danger" }%>
+            <% end %>
+            </div>
       </div>
     </div>
   </section>

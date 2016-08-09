@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :authorize_admin!, except: [:index, :show, :search]
 
   def index
     @products =Product.all
@@ -11,7 +12,7 @@ class ProductsController < ApplicationController
       @products = Product.order(params[sort: :desc])
     end
 
-    if params[:discount]
+    if params[:discount] == "true"
       @products = Product.where("price < ?", 15)
     end
 
@@ -34,7 +35,8 @@ class ProductsController < ApplicationController
   end
 
   def new
-    render "new.html.erb"
+    @products = Product.new
+      render "new.html.com"
   end
 
   def create
@@ -44,8 +46,13 @@ class ProductsController < ApplicationController
     price:params[:price],
     )
 
-    flash[:success]= "Product successfully created"
-    redirect_to "/products/#{@products.id}"
+    if @products.valid?
+      flash[:success]= "Product successfully created"
+      redirect_to "/products/#{@products.id}"
+    else
+      flash[:danger]= "Product was invalid"
+      render "new.html.erb"
+    end
   end
 
   def edit
@@ -53,6 +60,7 @@ class ProductsController < ApplicationController
   end
 
   def update
+
     @products = Product.find_by(id: params[:id])
     @products.update(
     name:params[:name],
@@ -68,7 +76,7 @@ class ProductsController < ApplicationController
     @products = Product.find_by(id: params[:id])
     @products.destroy
     flash[:danger]= " Product was successfully destroyed"
-    redirect_to "/"
+    redirect_to '/products'
   end
 
   def search

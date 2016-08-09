@@ -32,10 +32,20 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></span></a>
           <ul class="dropdown-menu" role="menu">
+              <% if current_user && current_user.admin %>
+                <li><a href="/products/new">Create a product</a></li>
+              <% end %>
             <li><a href="/products?sort=price&sort_order=asc">Sort by Price: lowest to highest</a></li>
             <li><a href="/products?sort=price&sort_order=desc">Sort by Price: highest to lowest</a></li>
             <li><a href="/shoppingcart">Checkout Page</a></li>
             <li><a href="/products/random">Random</a></li>
+            <%- if current_user signed_in? %>
+              <li><%= link_to t('auth.sign_out'), destroy_user_session_path, method: 'delete' %></li>
+            <% else %>
+              <li><%= link_to t('auth.sign_in'), new_user_session_path %></li>
+              <li><%= link_to t('auth.sign_up'), new_user_registration_path %></li>
+            <% end %>
+
             <% if current_user.nil? %>
               <li><a href="/login">Login</a></li>
               <li><a href="/signup">Sign Up</a></li>
@@ -58,6 +68,15 @@
 <% flash.each do |name, message| %>
   <div class="alert alert-<%= name %> alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><p><%= message %></p>
+    <% if message.is_a?(Array) %>
+    <ul>
+      <% message.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+    <% else  %>
+    <p><%= message %></p>
+    <% end %>
   </div>
   <% end %>
   <%= form_tag("/search", method: "get") do %>
